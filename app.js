@@ -46,10 +46,33 @@ const showEmojiList = (searchQuery) => {
     .filter((emoji) => emoji.unicodeName.includes(searchQuery))
     .forEach((emoji) => {
       const div = document.createElement("div");
+      const copyEmojiButton = document.createElement("input");
+
+      // emoji button
+
+      copyEmojiButton.type = "button";
+      copyEmojiButton.value = emoji.character;
+      copyEmojiButton.classList.add("copyEmojiButton");
+
+      // emoji div
+
       div.classList.add("emoji");
-      div.textContent = emoji.character;
+      div.appendChild(copyEmojiButton);
+
       emojiList.appendChild(div);
     });
+
+  const copyEmojiButton = document.querySelectorAll(".copyEmojiButton");
+
+  copyEmojiButton.forEach((button) =>
+    button.addEventListener("click", () => {
+      const copyEmoji = button.value;
+      // copyEmoji.select();
+      //  copyEmoji.setSelectionRange(0, 99999);
+      //  console.log(copyEmoji);
+      copyEmoji.execCommand("copy");
+    })
+  );
 };
 
 searchEmojiInput.addEventListener("input", searchEmoji);
