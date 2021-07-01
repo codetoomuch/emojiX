@@ -45,9 +45,10 @@ const showEmojiList = (searchQuery) => {
   emojis
     .filter((emoji) => emoji.unicodeName.includes(searchQuery))
     .forEach((emoji) => {
-      const li = document.createElement("li");
-      li.textContent = emoji.character;
-      emojiList.appendChild(li);
+      const div = document.createElement("div");
+      div.classList.add("emoji");
+      div.textContent = emoji.character;
+      emojiList.appendChild(div);
     });
 };
 

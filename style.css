@@ -5,7 +5,7 @@
 }
 
 body {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,26 +13,42 @@ body {
 }
 
 .searchEmoji {
+  margin: 1rem 0;
   padding: 0.5rem;
   width: 18rem;
   font-size: 1rem;
   border: 1px solid black;
   border-radius: 12px;
+  outline: 0;
 }
 
 .emojiContainer {
-  margin: 1rem 0;
-  display: flex;
+  margin: 0.5rem 0;
+  border: 1px solid black;
+  height: 20rem;
+  width: 18rem;
+  overflow-y: scroll;
+  border-radius: 12px;
 }
 
 .emojiList {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  text-align: center;
 }
 
-li {
+.emoji {
   padding: 1rem;
   font-size: 2rem;
   list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+footer {
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 0.9rem;
 }
