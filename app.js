@@ -2,6 +2,8 @@ const searchEmojiInput = document.querySelector(".searchEmoji");
 const emojiContainer = document.querySelector(".emojiContainer");
 const emojiList = document.querySelector(".emojiList");
 
+searchEmojiInput.addEventListener("input", searchEmoji);
+
 let emojis;
 
 const statusCheck = () => {
@@ -31,13 +33,15 @@ const getEmoji = async () => {
 
 getEmoji();
 
-const searchEmoji = (e) => {
-  const searchQuery = e.target.value.toLowerCase();
+function searchEmoji(e) {
+  e.preventDefault();
+
+  const searchQuery = e.target.value.trim().toLowerCase();
   showEmojiList(searchQuery);
   if (searchQuery.length === 0) {
     emojiList.innerHTML = "";
   }
-};
+}
 
 const showEmojiList = (searchQuery) => {
   emojiList.innerHTML = "";
@@ -45,34 +49,39 @@ const showEmojiList = (searchQuery) => {
   emojis
     .filter((emoji) => emoji.unicodeName.includes(searchQuery))
     .forEach((emoji) => {
-      const div = document.createElement("div");
-      const copyEmojiButton = document.createElement("input");
+      const li = document.createElement("input");
 
       // emoji button
 
-      copyEmojiButton.type = "button";
-      copyEmojiButton.value = emoji.character;
-      copyEmojiButton.classList.add("copyEmojiButton");
+      li.textContent = emoji.character;
+      li.value = emoji.character;
+      li.id = emoji.unicodeName;
+      li.classList.add("copyEmojiButton");
 
-      // emoji div
-
-      div.classList.add("emoji");
-      div.appendChild(copyEmojiButton);
-
-      emojiList.appendChild(div);
+      emojiList.appendChild(li);
     });
 
   const copyEmojiButton = document.querySelectorAll(".copyEmojiButton");
 
   copyEmojiButton.forEach((button) =>
-    button.addEventListener("click", () => {
-      const copyEmoji = button.value;
-      // copyEmoji.select();
-      //  copyEmoji.setSelectionRange(0, 99999);
-      //  console.log(copyEmoji);
-      copyEmoji.execCommand("copy");
+    button.addEventListener("click", (e) => {
+      console.log(e.target);
+      copyButtonFunc(e.target);
     })
   );
 };
 
-searchEmojiInput.addEventListener("input", searchEmoji);
+const copyButtonFunc = (target) => {
+  console.log(target);
+  const copyEmoji = document.getElementById(`${target.id}`);
+  console.log(copyEmoji);
+
+  // make sure its an editable area before using select(), i.e input/textarea
+
+  copyEmoji.select();
+
+  // make sure to use document.execCommand('copy') as this function is only available with document
+  // not with other individual document nodes
+
+  document.execCommand("copy");
+};
