@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -5,50 +7,69 @@
 }
 
 body {
-  /* min-height: 100vh; */
+  min-height: 100vh;
+  font-family: "Lato", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.wrapper {
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+}
+
 .searchEmoji {
-  margin: 1rem 0;
   padding: 0.5rem;
   width: 18rem;
   font-size: 1rem;
-  border: 1px solid black;
+  font-family: inherit;
+  font-weight: bold;
+  text-align: center;
+  /* border: 1px solid black; */
   border-radius: 12px;
   outline: 0;
 }
 
 .emojiContainer {
   margin: 0.5rem 0;
-  border: 1px solid black;
+  padding: 0.5rem;
   height: 20rem;
   width: 18rem;
-  overflow-y: scroll;
+  /* border: 1px solid black; */
+  overflow-y: auto;
   border-radius: 12px;
 }
 
-.emojiList {
-  text-align: center;
+.loading img {
+  height: 6rem;
+  width: 6rem;
+  visibility: hidden;
 }
 
-.emoji {
-  padding: 1rem;
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.active img {
+  visibility: visible;
 }
 
-.copyEmojiButton {
-  font-size: 3rem;
+.copyEmoji {
+  font-size: 1.5rem;
   outline: 0;
   border: 0;
   background: none;
   cursor: pointer;
+}
+
+input {
+  width: 2rem;
+}
+
+li {
+  list-style: none;
+  margin: 0 0.3rem;
+  border: 1px solid black;
 }
 
 a {
