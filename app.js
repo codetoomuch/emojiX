@@ -53,7 +53,7 @@ const showEmojiList = (searchQuery) => {
   emojiList.innerHTML = "";
 
   emojis
-    .filter((emoji) => emoji.unicodeName.includes(searchQuery))
+    .filter((emoji) => emoji.slug.includes(searchQuery))
     .forEach((emoji) => {
       const input = document.createElement("input");
 
