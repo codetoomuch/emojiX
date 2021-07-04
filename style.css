@@ -81,7 +81,11 @@ a {
 }
 
 footer {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.6rem;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
 }
