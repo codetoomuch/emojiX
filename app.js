@@ -43,10 +43,11 @@ function searchEmoji(e) {
   e.preventDefault();
 
   const searchQuery = e.target.value.trim().toLowerCase();
-  showEmojiList(searchQuery);
-  if (searchQuery.length === 0) {
+  /*  if (searchQuery.length === 0) {
     emojiList.innerHTML = "";
   }
+*/
+  showEmojiList(searchQuery);
 }
 
 const showEmojiList = (searchQuery) => {
