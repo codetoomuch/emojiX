@@ -7,26 +7,6 @@ searchEmojiInput.addEventListener("input", searchEmoji);
 
 let emojis;
 
-const statusCheck = () => {
-  setInterval(() => {
-    if (emojis === undefined) {
-      loading.classList.add("active");
-    }
-    if (emojis !== undefined) {
-      loading.classList.remove("active");
-      loading.remove();
-      return;
-    }
-  }, 1000);
-  clearInterval(() => {
-    if (emojis !== undefined) {
-      return;
-    }
-  });
-};
-
-statusCheck();
-
 const getEmoji = async () => {
   const res = await fetch(
     "https://emoji-api.com/emojis?access_key=fc345eef934edab724d45751275dbfa0654aa322"
@@ -39,14 +19,29 @@ const getEmoji = async () => {
 
 getEmoji();
 
+const statusCheck = () => {
+  const intervalID = setInterval(() => {
+    if (emojis === undefined) {
+      loading.classList.add("active");
+    } else {
+      loading.classList.remove("active");
+      loading.remove();
+
+      emojis.forEach((emoji) => {
+        emojiListFunc(emoji);
+      });
+
+      clearInterval(intervalID);
+    }
+  }, 1000);
+};
+
+statusCheck();
+
 function searchEmoji(e) {
   e.preventDefault();
 
   const searchQuery = e.target.value.trim().toLowerCase();
-  /*  if (searchQuery.length === 0) {
-    emojiList.innerHTML = "";
-  }
-*/
   showEmojiList(searchQuery);
 }
 
@@ -56,16 +51,7 @@ const showEmojiList = (searchQuery) => {
   emojis
     .filter((emoji) => emoji.slug.includes(searchQuery))
     .forEach((emoji) => {
-      const input = document.createElement("input");
-
-      // emoji button
-
-      input.textContent = emoji.character;
-      input.value = emoji.character;
-      input.id = emoji.unicodeName;
-      input.classList.add("copyEmoji");
-
-      emojiList.appendChild(input);
+      emojiListFunc(emoji);
     });
 
   const copyEmojiButton = document.querySelectorAll(".copyEmoji");
@@ -75,6 +61,17 @@ const showEmojiList = (searchQuery) => {
       copyButtonFunc(e.target.id);
     })
   );
+};
+
+const emojiListFunc = (emoji) => {
+  const input = document.createElement("input");
+
+  input.textContent = emoji.character;
+  input.value = emoji.character;
+  input.id = emoji.unicodeName;
+  input.classList.add("copyEmoji");
+
+  emojiList.appendChild(input);
 };
 
 const copyButtonFunc = (target) => {
