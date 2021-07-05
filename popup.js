@@ -32,6 +32,9 @@ const statusCheck = () => {
       emojis.forEach((emoji) => {
         emojiListFunc(emoji);
       });
+
+      copyButtonFunc();
+
       searchEmojiInput.disabled = false;
       clearInterval(intervalID);
     }
@@ -54,13 +57,9 @@ const showEmojiList = (searchQuery) => {
       emojiListFunc(emoji);
     });
 
-  const copyEmojiButton = document.querySelectorAll(".copyEmoji");
+  // const copyEmojiButton = document.querySelectorAll(".copyEmoji");
 
-  copyEmojiButton.forEach((button) =>
-    button.addEventListener("click", (e) => {
-      copyButtonFunc(e.target.id);
-    })
-  );
+  copyButtonFunc();
 };
 
 const emojiListFunc = (emoji) => {
@@ -74,15 +73,21 @@ const emojiListFunc = (emoji) => {
   emojiList.appendChild(input);
 };
 
-const copyButtonFunc = (target) => {
-  const copyEmoji = document.getElementById(`${target}`);
+const copyButtonFunc = () => {
+  const copyEmojiButton = document.querySelectorAll(".copyEmoji");
 
-  // make sure its an editable area before using select(), i.e input/textarea
+  copyEmojiButton.forEach((button) =>
+    button.addEventListener("click", (e) => {
+      const copyEmoji = document.getElementById(`${e.target.id}`);
 
-  copyEmoji.select();
+      // make sure its an editable area before using select(), i.e input/textarea
 
-  // make sure to use document.execCommand('copy') as this function is only available with document
-  // not with other individual document nodes
+      copyEmoji.select();
 
-  document.execCommand("copy");
+      // make sure to use document.execCommand('copy') as this function is only available with document
+      // not with other individual document nodes
+
+      document.execCommand("copy");
+    })
+  );
 };
